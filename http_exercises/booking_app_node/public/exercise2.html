@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>Exercise 2</title>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementsByTagName('form')[0];
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+
+        const data = new FormData(form);
+        const request = new XMLHttpRequest();
+        request.open(form.method, form.action);
+        request.addEventListener('load', () => {
+          switch (request.status) {
+            case 201:
+              const id = JSON.parse(request.response)['id'];
+              form.reset();
+              alert(`Successfully created staff with id: ${id}`);
+              break;
+            case 400:
+              alert(request.responseText);
+              break;
+          }
+        });
+
+        request.send(data);
+      });
+    });
+  </script>
+</head>
+<body>
+  <form action="http://localhost:3000/api/staff_members" method="post">
+    <label for="name">Name</label>
+    <input id="name" type="text" name="name" value="" />
+    <label for="email">Email</label>
+    <input id="email" type="text" name="email" value="" />
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>

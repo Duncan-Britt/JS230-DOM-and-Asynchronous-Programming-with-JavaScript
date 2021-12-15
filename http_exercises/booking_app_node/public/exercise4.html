@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>Exercise 4</title>
+  <script type="text/javascript">
+    let CONSOLE_VAR;
+    document.addEventListener("DOMContentLoaded", () => {
+      // DOM ELEMENTS
+      const SCHEDULE_FORM = document.getElementsByTagName('form')[0];
+      const FORM_SELECT = document.querySelector('form select');
+      CONSOLE_VAR = FORM_SELECT;
+      // EVENT LiSTENERS ------------
+
+      // CLICK FORM SELECT
+      FORM_SELECT.addEventListener('click', () => {
+        // REQUEST STAFF
+        const xhrStaff = new XMLHttpRequest();
+        xhrStaff.open('GET', 'http://localhost:3000/api/staff_members');
+        xhrStaff.responseType = 'json';
+        xhrStaff.addEventListener('load', () => {
+          const STAFF = xhrStaff.response;
+
+          // REQUEST SCHEDULES
+          const xhrSchedules = new XMLHttpRequest();
+          xhrSchedules.open('GET', 'http://localhost:3000/api/schedules');
+          xhrSchedules.responseType = 'json';
+          xhrSchedules.addEventListener('load', () => {
+            const schedules = xhrSchedules.response;
+
+            // RESET SELECT OPTIONS
+            for (let i = 0; i < FORM_SELECT.options.length; i++) {
+              FORM_SELECT.removeChild(FORM_SELECT.options[i]);
+            }
+            // POPULATE FORM SELECT OPTIONS
+            schedules.forEach(schedule => {
+              if (schedule.student_email === null) {
+                const option = document.createElement('option');
+                option.value = Number(schedule.id);
+                option.text = `${nameById(STAFF, schedule.staff_id)} | ` +
+                              `${schedule.date} | ${schedule.time}`
+                FORM_SELECT.options.add(option);
+              }
+            });
+          });
+          xhrSchedules.send();
+        });
+        xhrStaff.send();
+      });
+
+      // SUBMIT BOOKING FORM
+      SCHEDULE_FORM.addEventListener('submit', event => {
+        event.preventDefault();
+        const xhrBook = new XMLHttpRequest();
+        xhrBook.open('POST', 'http://localhost:3000/api/bookings');
+        xhrBook.addEventListener('load', () => {
+          if (xhrBook.status === 404) {
+            let response = xhrBook.responseText;
+            switch (response) {
+              case 'Schedule is either booked or does not exist.':
+                alert(response);
+                break;
+              default:
+                alert(response);
+
+                // MAKE CREATE STUDENT FORM
+                if (!document.getElementById('student-form')) {
+                  const STUDENT_FORM = createStudentForm(
+                                   email(SCHEDULE_FORM),
+                                   parseBkSeq(response));
+
+                  document.body.appendChild(STUDENT_FORM);
+
+                  // SUBMIT CREATE STUDENT FORM
+                  STUDENT_FORM.addEventListener('submit', event => {
+                    event.preventDefault();
+                    const xhrCreateStudent = new XMLHttpRequest();
+                    xhrCreateStudent.open('POST', 'http://localhost:3000/api/students');
+                    xhrCreateStudent.addEventListener('load', event => {
+                      switch (xhrCreateStudent.status) {
+                        case 201:
+                          alert(xhrCreateStudent.responseText);
+                          document.body.removeChild(STUDENT_FORM);
+                          xhrBook.open('POST', 'http://localhost:3000/api/bookings');
+                          xhrBook.send(new FormData(SCHEDULE_FORM));
+                          break;
+                        case 403:
+                          alert(xhrCreateStudent.responseText);
+                          break;
+                      }
+                    });
+                    xhrCreateStudent.send(new FormData(STUDENT_FORM));
+                  });
+                }
+            }
+          } else if (xhrBook.status === 204) {
+            alert("Booked");
+          }
+        });
+        xhrBook.send(new FormData(SCHEDULE_FORM));
+      });
+    });
+
+    // FUNCTIONS
+    function email(form) {
+      return form.children[3].value;
+    }
+
+    function parseBkSeq(response) {
+      // 'Student does not exist; booking_sequence: {sequence}'
+      return response.match(/booking_sequence: (\d+)/)[1];
+    }
+
+    function createStudentForm(email, bkSeq) {
+      const form = document.createElement('form');
+      form.id = "student-form";
+      const emailLabel = document.createElement('label');
+      emailLabel.htmlFor = "new-student-email";
+      emailLabel.textContent = "Email: ";
+      const emailInput = document.createElement('input');
+      emailInput.type = "email";
+      emailInput.id = "new-student-email";
+      emailInput.value = email;
+      emailInput.name = "email";
+
+      const nameLabel = document.createElement('label');
+      nameLabel.htmlFor = "new-student-name";
+      nameLabel.textContent = "Name: "
+      const nameInput = document.createElement('input');
+      nameInput.id = "new-student-name";
+      nameInput.name = "name";
+
+      const bkSeqLabel = document.createElement('label');
+      bkSeqLabel.htmlFor = "new-student-bk-seq";
+      bkSeqLabel.textContent = "Booking Sequence: ";
+      const bkSeqInput = document.createElement('input');
+      bkSeqInput.id = 'new-student-bk-seq';
+      bkSeqInput.value = Number(bkSeq);
+      bkSeqInput.name = "booking_sequence";
+
+      const submitBtn = document.createElement('button');
+      submitBtn.type = 'submit';
+      submitBtn.textContent = "Submit";
+
+      form.appendChild(emailLabel);
+      form.appendChild(emailInput);
+      form.appendChild(nameLabel);
+      form.appendChild(nameInput);
+      form.appendChild(bkSeqLabel);
+      form.appendChild(bkSeqInput);
+      form.appendChild(submitBtn);
+
+      return form;
+    }
+
+    function nameById(staff, staff_id) {
+      return staff.filter(member => member.id === staff_id)[0]['name'];
+    }
+  </script>
+</head>
+<body>
+  <form action="http://localhost:3000/api/bookings" method="post">
+    <label for="staff-schedule">Please select one schedule</label>
+    <select id="staff-schedule" name="id">
+    </select>
+    <label for="email-input">Email: </label>
+    <input type="email" name="student_email" />
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>

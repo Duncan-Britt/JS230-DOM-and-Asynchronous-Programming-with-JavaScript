@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>Exercise 5</title>
+  <script type="text/javascript">
+    // ADD DATES UL TO DOM
+    (function() {
+      // REQUEST DATES WITH BOOKINGS
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', 'http://localhost:3000/api/bookings');
+      xhr.responseType = 'json';
+      xhr.addEventListener('load', () => {
+        const dates = xhr.response;
+        // ADD UL TO DOM
+        document.body.appendChild(ulFromDates(dates));
+      });
+      xhr.send();
+    }());
+
+    // FUNCTIONS
+    function liFromDate(date) {
+      const li = document.createElement('li');
+      li.textContent = date;
+      const childUl = document.createElement('ul');
+      childUl.hidden = true;
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', 'http://localhost:3000/api/bookings/' + date);
+      xhr.responseType = 'json';
+      xhr.addEventListener('load', event => {
+        const bookings = xhr.response;
+        bookings.forEach(booking => {
+          const childLi = document.createElement('li');
+          childLi.textContent = booking[0] +
+                                ' | ' +
+                                booking[1] +
+                                ' | ' +
+                                booking[2];
+          childUl.appendChild(childLi);
+        });
+      });
+      xhr.send();
+      li.appendChild(childUl);
+      return li;
+    }
+
+    function ulFromDates(dates) {
+      const ul = document.createElement('ul');
+      dates.forEach(date => {
+        ul.appendChild(liFromDate(date));
+      });
+
+      ul.addEventListener('click', event => {
+        [].forEach.call(event.target.children, bookingEl => {
+          bookingEl.hidden = !bookingEl.hidden;
+        });
+      });
+      return ul;
+    }
+  </script>
+</head>
+<body>
+
+</body>
+</html>

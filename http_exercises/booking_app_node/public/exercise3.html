@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>Exercise 3</title>
+  <script type="text/javascript">
+    let STAFF_DATA;
+    document.addEventListener("DOMContentLoaded", () => {
+      // DOM ELEMENTS
+      const addScheduleBtn = document.getElementById('addScheduleBtn');
+      const form = document.getElementsByTagName('form')[0];
+      const submitBtn = document.getElementById('submit-btn');
+      // SCRIPT
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', 'http://localhost:3000/api/staff_members');
+
+      xhr.addEventListener("load", () => {
+        STAFF_DATA = JSON.parse(xhr.response);
+        createInputBox(form, submitBtn);
+
+        // EVENT LISTENERS
+        addScheduleBtn.addEventListener('click',
+                                        createInputBox.bind(null,
+                                                            form, submitBtn));
+
+        form.addEventListener('submit', event => {
+          event.preventDefault();
+
+          // SERIALIZE FORM DATA
+          const data = { schedules: [] };
+
+          const inputSchedules = [].slice.call(form.children, 0, -1);
+          inputSchedules.forEach(inputSchedule => {
+            const staff_id = Number(inputSchedule.children[1]['value']);
+            const date = inputSchedule.children[3]['value'];
+            const time = inputSchedule.children[5]['value'];
+            data.schedules.push({staff_id, date, time});
+          });
+
+          const json = JSON.stringify(data);
+
+          // XHR
+          const xhr = new XMLHttpRequest();
+          xhr.open(form.method, form.action);
+          xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+          xhr.addEventListener('load', () => {
+            alert(xhr.responseText);
+            if (xhr.status === 201) {
+              resetForm(form);
+            }
+          });
+
+          xhr.send(json);
+        });
+      });
+
+      xhr.send();
+    });
+
+    // FUNCTIONS
+    function resetForm(form) {
+      [].slice.call(form.children, 0, -2).forEach(child => {
+        form.removeChild(child);
+      });
+      form.reset();
+    }
+
+    function createInputBox(form, submitBtn) {
+      const inputBox = document.createElement('div');
+
+      const selectLabel = document.createElement('label');
+      selectLabel.htmlFor = "staff-select";
+      selectLabel.textContent = "Staff Name: ";
+      const select = document.createElement('select');
+      select.id = "staff-select";
+      select.name = "staff_id";
+      STAFF_DATA.forEach(member => {
+        const option = document.createElement('option');
+        option.value = member.id;
+        option.text = member.name;
+        select.options.add(option);
+      });
+      inputBox.appendChild(selectLabel);
+      inputBox.appendChild(select);
+
+      const dateLabel = document.createElement('label');
+      dateLabel.htmlFor = "schedule-date";
+      dateLabel.textContent = "Date: ";
+      const dateInput = document.createElement('input');
+      dateInput.id = "schedule-date";
+      dateInput.name = "date";
+      inputBox.appendChild(dateLabel);
+      inputBox.appendChild(dateInput);
+
+      const timeLabel = document.createElement('label');
+      timeLabel.htmlFor = "schedule-time";
+      timeLabel.textContent = "Time: ";
+      const timeInput = document.createElement('input');
+      timeInput.id = "schedule-time";
+      timeInput.name = 'time';
+      inputBox.appendChild(timeLabel);
+      inputBox.appendChild(timeInput);
+
+      form.insertBefore(inputBox, submitBtn);
+    }
+  </script>
+</head>
+<body>
+  <button id = "addScheduleBtn" type="button">Add more schedules</button>
+  <form action="http://localhost:3000/api/schedules" method="post">
+    <button id="submit-btn" type="submit">Submit</button>
+  </form>
+</body>
+</html>

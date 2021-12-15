@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>Exercise 6</title>
+  <script type="text/javascript">
+    function cancelBooking(id) {
+      const xhr = new XMLHttpRequest();
+      xhr.open('put', 'http://localhost:3000/api/bookings/' + id);
+      xhr.addEventListener('load', () => {
+        if (xhr.status !== 204) {
+          alert(xhr.responseText);
+        }
+      });
+      xhr.send();
+    }
+
+    function cancelSchedule(id) {
+      const xhr = new XMLHttpRequest();
+      xhr.open('delete', 'http://localhost:3000/api/schedules/' + id);
+      xhr.addEventListener('load', () => {
+        if (xhr.status !== 204) {
+          alert(xhr.responseText);
+        }
+      });
+      xhr.send();
+    }
+  </script>
+</head>
+<body>
+</body>
+</html>
