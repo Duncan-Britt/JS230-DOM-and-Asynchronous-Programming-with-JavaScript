@@ -1,0 +1,70 @@
+body {
+  background-color: #161718;
+}
+
+h1 {
+  color: #ddd;
+  margin-left: 10rem;
+}
+
+li {
+  background-color: #ddd;
+  max-width: 50vw;
+  min-width: 500px;
+  border-radius: 1rem;
+  margin: 2rem 0;
+  height: 80px;
+  position: relative;
+}
+
+p {
+  display: inline-block;
+  font-family: fantasy;
+  font-size: 1.5rem;
+  margin-left: 2rem;
+}
+
+button {
+  display: inline-block;
+  background: none;
+  border-style: none;
+  position: absolute;
+  margin-right: 1rem;
+  top: 30%;
+  right: .8rem;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+#delete_message {
+  background: #fff;
+  width: 45%;
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  z-index: 1;
+  display: none;
+}
+
+#delete_message a {
+  text-decoration: none;
+  font-size: 20px;
+  border-radius: 1rem;
+  text-align: right;
+  display: inline-block;
+  position: relative;
+  left: 10px;
+  bottom: 10px;
+  padding: 10px 10px;
+}
+
+#delete_message > a {
+  background: red;
+}
+
+#delete_message > a + a {
+  background: #73b42f;
+  color: #fff;
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+  <link rel="stylesheet" href="index.css">
+  <script src="handlebars-v4.7.7.js"></script>
+  <script src="index.js"></script>
+</head>
+<body>
+  <header>
+    <script id="header_template" type="text/x-handlebars-template">
+      <h1>Buy Used Cars</h1>
+      <form action="#" method="post">
+        <fieldset>
+          {{#each filters}}
+          <label for="{{filter}}">{{capitalize filter}}</label>
+          <select id="{{filter}}" name="{{filter}}">
+            {{#each options}}
+            <option value="{{value}}">{{value}}</option>
+            {{/each}}
+          </select>
+          {{/each}}
+          <button id="filter" type="button">Filter</button>
+        </fieldset>
+      </form>
+    </script>
+  </header>
+  <ul>
+    <script id="gallery" type="text/x-handlebars-template">
+      <li>
+        {{#each cars}}
+        <div>
+          <img src="{{this.image}}" alt="{{makeModel this.make this.model}}">
+          <p>{{makeModel this.make this.model}}</p>
+          <p>Year: {{this.year}}</p>
+          <p>Price: {{this.price}}</p>
+          <p><a href="#">Buy</a></p>
+        </div>
+        {{/each}}
+      </li>
+    </script>
+  </ul>
+</body>
+</html>

@@ -1,0 +1,38 @@
+body {
+  background-color: #90801b;
+  color: #ffffff;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+#time {
+  display: inline;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 50px;
+}
+
+#time p span {
+  position: relative;
+}
+
+#buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+button {
+  padding: 8px 15px;
+  margin: 0 20px;
+  font-size: 20px;
+  color: #fff;
+  background: none;
+  border-style: solid;
+  border-radius: 5px;
+  border-color: #fff;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, .1);
+}

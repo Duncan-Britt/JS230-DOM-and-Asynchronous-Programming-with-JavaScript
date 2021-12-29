@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+  <link rel="stylesheet" href="index.css">
+  <script src="manglebars.js"></script>
+  <script src="index.js"></script>
+</head>
+<body>
+  <h1>Todos</h1>
+  <script id="todo_items" type="text/template">
+    <ul>
+      {{#each todos}}
+      <li data-id="{{id}}">
+        <div>
+          <p>{{title}}</p>
+          <button type="button">❌</button>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+  </script>
+  <div id="delete_message">
+    <p>Are you sure you want to delete this todo?</p>
+    <a href="#">Yes</a>
+    <a href="#">No</a>
+  </div>
+</body>
+</html>

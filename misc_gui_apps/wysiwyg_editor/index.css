@@ -1,0 +1,88 @@
+/* * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: royalblue;
+    color: white;
+    text-align: center;
+  }
+
+  main {
+    color: black;
+    height: 500px;
+    width: 700px;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  #controls {
+    background-color: lightgray;
+    height: 30px;
+  }
+
+  button {
+    background-color: lightgray;
+    border: none;
+    border-radius: 5px;
+  }
+
+  button:hover {
+    background-color: white;
+    cursor: pointer;
+  }
+
+  button.active {
+    background-color: white;
+  }
+
+  i {
+    margin: 5px;
+  }
+
+  #text {
+    background-color: white;
+    height: 470px;
+    padding: 5px;
+  } */
+
+body {
+  background-color: #111213;
+}
+
+#title {
+  margin-top: 50px;
+  text-align: center;
+  color: #92979e;
+}
+
+#container {
+  width: 70%;
+  margin: 50px auto 0 auto;
+}
+
+#options {
+  padding: 5px 10px;
+  background-color: #eee;
+}
+
+i {
+  padding: 2px;
+  margin-right: 20px;
+}
+
+i:hover {
+  cursor: pointer;
+}
+
+#edit-window {
+  padding: 40px;
+  background-color: #1f2025;
+  color: #e8e8e7;
+  font-size: 25px;
+  font-family: monospace;
+}
+
+div:focus {
+  outline: none;
+}

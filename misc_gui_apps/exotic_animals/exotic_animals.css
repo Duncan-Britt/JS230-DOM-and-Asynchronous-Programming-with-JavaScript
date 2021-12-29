@@ -1,0 +1,44 @@
+body {
+  background-color: #262543;;
+}
+
+h1 {
+  color: #fff;
+  text-align: center;
+}
+
+#exotic_animals {
+  text-align: center;
+}
+
+figure {
+  display: inline-block;
+  width: 18vw;
+  position: relative;
+}
+
+img {
+  width: 100%;
+  border: solid #fff;
+  border-width: 10px;
+}
+
+.hover {
+  transition-delay: 500ms;
+  transition-duration: 300ms;
+  transition-property: opacity;
+  opacity: 1;
+}
+
+figcaption {
+  pointer-events: none;
+  left: 5%;
+  width: 100%;
+  min-height: 150px;
+  padding: 10px 10px;
+  position: absolute;
+  color: #fff;
+  z-index: 1;
+  background-color: rgba(0,0,0, 85%);
+  opacity: 0;
+}

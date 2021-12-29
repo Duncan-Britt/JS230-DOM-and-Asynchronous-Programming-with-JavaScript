@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  width: auto;
+  background-color: #da871a;
+  color: #eee;
+}
+
+li div {
+  display: inline-block;
+  width: 200px;
+}
+
+img {
+  width: 100%;
+}
+
+a {
+  background-color: #da871a;
+  color: #eee;
+  padding: 6px 8px;
+  border-radius: 2px;
+}

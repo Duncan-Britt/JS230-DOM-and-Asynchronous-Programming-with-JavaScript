@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+  <style media="screen">
+    body {
+      background-color: #878904;
+    }
+
+    h1 {
+      color: #fff;
+      text-align: center;
+    }
+
+    section {
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px 20px;
+      width: 800px;
+    }
+
+    article {
+      margin: 20px 0;
+    }
+
+    h2 {
+      font-size: 35px
+    }
+
+    p {
+      font-size: 22px;
+    }
+
+    button {
+      margin-top: 15px;
+      color: #fff;
+      background-color: #878904;
+      padding: 4px 10px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button:hover {
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  <script type="text/javascript">
+    const articles = { languages: [
+      {
+        name: 'Ruby',
+        description: 'Ruby is a dynamic, reflective, object-oriented, ' +
+        'general-purpose programming language. It was designed and developed in the mid-1990s ' +
+        'by Yukihiro Matsumoto in Japan. According to its creator, Ruby was influenced by Perl, ' +
+        'Smalltalk, Eiffel, Ada, and Lisp. It supports multiple programming paradigms, ' +
+        'including functional, object-oriented, and imperative. It also has a dynamic type ' +
+        'system and automatic memory management.'
+      },
+
+      {
+        name: 'JavaScript',
+        description: 'JavaScript is a high-level, dynamic, untyped, and interpreted ' +
+        'programming language. It has been standardized in the ECMAScript language ' +
+        'specification. Alongside HTML and CSS, JavaScript is one of the three core ' +
+        'technologies of World Wide Web content production; the majority of websites employ ' +
+        'it, and all modern Web browsers support it without the need for plug-ins. JavaScript ' +
+        'is prototype-based with first-class functions, making it a multi-paradigm language, ' +
+        'supporting object-oriented, imperative, and functional programming styles.'
+      },
+
+      {
+        name: 'Lisp',
+        description: 'Lisp (historically, LISP) is a family of computer programming languages ' +
+        'with a long history and a distinctive, fully parenthesized prefix notation. ' +
+        'Originally specified in 1958, Lisp is the second-oldest high-level programming ' +
+        'language in widespread use today. Only Fortran is older, by one year. Lisp has changed ' +
+        'since its early days, and many dialects have existed over its history. Today, the best '+
+        'known general-purpose Lisp dialects are Common Lisp and Scheme.'
+      }
+    ] };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      Handlebars.registerHelper('print_teaser', function() {
+        return this.description.slice(0, 120);
+      });
+      Handlebars.registerHelper('print_rest', function() {
+        return this.description.slice(120, -1)
+      });
+
+      templateArticles = Handlebars.compile(document.querySelector('#articles').innerHTML);
+      document.querySelector('section').innerHTML = templateArticles(articles);
+
+      document.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', e => {
+          p = e.target.parentElement.querySelector('p');
+          span = e.target.parentElement.querySelector('span');
+          span.classList.toggle('hidden');
+          if ([].includes.call(span.classList, 'hidden')) {
+            e.target.textContent = "Show More";
+            p.innerHTML = p.innerHTML.replace(/[<]span/, '...<span');
+          } else {
+            e.target.textContent = "Show Less";
+            p.innerHTML = p.innerHTML.replace(/\.{3}/, '');
+          }
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Programming Languages</h1>
+  </header>
+  <section>
+    <script id="articles" type="text/x-handlebars-template">
+      {{#each languages}}
+        <article>
+          <h2>{{name}}</h2>
+          <p>{{print_teaser}}...<span class="hidden">{{print_rest}}</span></p>
+          <button type="button">Show More</button>
+        </article>
+      {{/each}}
+    </script>
+  </section>
+</body>
+</html>

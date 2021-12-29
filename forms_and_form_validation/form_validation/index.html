@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>Sign up</title>
+  <link rel="stylesheet" href="index.css">
+  <script src="handlebars.js"></script>
+  <script src="index.js"></script>
+</head>
+<body>
+  <div id="container">
+    <h1>Sign up Form</h1>
+    <form action="#" method="post" novalidate>
+      <fieldset>
+        <div class="row">
+          <div class="input">
+            <label for="first_name">First Name</label>
+            <input id="first_name" type="text" name="first_name" pattern="[a-zA-Z ]+" required/>
+          </div>
+          <p id="first_name_flash" class="flash">First name is a required field.</p>
+        </div>
+
+        <div class="row">
+          <div class="input">
+            <label for="last_name">Last Name</label>
+            <input id="last_name" type="text" name="last_name" pattern="[a-zA-Z ]+"required/>
+          </div>
+          <p id="last_name_flash" class="flash">Last name is a required field.</p>
+        </div>
+
+        <div class="row">
+          <div class="input">
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" pattern=".+@.+" required/>
+          </div>
+          <p id="email_flash" class="flash">Please Enter a valid Email.</p>
+        </div>
+
+        <div class="row">
+          <div class="input">
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" pattern=".{10,}" required/>
+          </div>
+          <p id="password_flash" class="flash">Password is a required field.</p>
+        </div>
+
+        <div class="row">
+          <div class="input">
+            <label for="phone_number">Phone Number</label>
+            <input id="phone_number" type="phone_number" name="phone_number" pattern="\d{3}-\d{3}-\d{4}"/>
+          </div>
+          <p id="phone_number_flash" class="flash">Please Enter a valid Phone Number.</p>
+        </div>
+
+        <div class="row">
+          <div class="input">
+            <label>Credit Card</label>
+            <input type="text" name="credit_card" pattern="\d{4,}" required/>
+            <input type="text" name="credit_card" pattern="\d{4,}" required/>
+            <input type="text" name="credit_card" pattern="\d{4,}" required/>
+            <input id="last" type="text" name="credit_card" pattern="\d{4,}" required/>
+          </div>
+          <p id="credit_card_flash" class="flash">Invalid Credit Card</p>
+        </div>
+        <input type="submit" />
+      </fieldset>
+    </form>
+  </div>
+
+  <div id="serialized">
+    <script id="template" type="text/x-handlebars-template">
+      <h3>Serialized Form</h3>
+      {{#each encodedStrs }}
+      <p>{{this}}</p>
+      {{/each}}
+    </script>
+  </div>
+</body>
+</html>

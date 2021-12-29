@@ -1,0 +1,42 @@
+body {
+  background-color: #45b534;
+}
+
+#container {
+  width: 60%;
+  margin: 0 auto;
+}
+
+h1 {
+  color: white;
+}
+
+form  {
+  background-color: white;
+  font-size: 24px;
+}
+
+.input {
+  margin: 20px;
+  display: inline-block;
+}
+
+input {
+  display: block;
+}
+
+input[type="text"] {
+  font-size: 20px;
+}
+
+.flash {
+  margin-left: 20px;
+  /* display: inline; */
+  color: #bf5053;
+  font-family: Helvetica, Arial;
+  display: none;
+}
+
+input[type="submit"] {
+  margin: 20px;;
+}
