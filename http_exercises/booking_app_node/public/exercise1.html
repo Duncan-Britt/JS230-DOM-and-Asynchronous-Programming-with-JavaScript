@@ -6,40 +6,36 @@
 </head>
 <script type="text/javascript">
   function availableSchedules() {
-    const request = new XMLHttpRequest();
-    request.open('GET', 'http://localhost:3000/api/schedules');
-    request.timeout = 5000;
-    request.responseType = 'json';
-
-    request.addEventListener('load', event => {
-      let data = request.response;
-      if (data.length === 0) {
-        alert("There are currently no schedules available for booking");
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '/api/schedules');
+    xhr.responseType = 'json';
+    xhr.timeout = 5000;
+    xhr.addEventListener('load', () => {
+      if (xhr.response.length === 0) {
+        console.log("There are currently no available schedules");
         return;
       }
 
-      const staffSchedules = {};
-      data.forEach(schedule => {
-        const key = 'staff ' + schedule.staff_id;
-        staffSchedules[key] = staffSchedules[key] || 0;
-        staffSchedules[key]++;
+      const staffScheduleCounts = {};
+      xhr.response.forEach(schedule => {
+        staffScheduleCounts[schedule.staff_id] ||= 0;
+        staffScheduleCounts[schedule.staff_id] += 1;
       });
 
-      let scheduleStr = Object.keys(staffSchedules).map(key => {
-        return `${key}: ${staffSchedules[key]}`
-      }).join('\n');
-      alert(scheduleStr);
+      console.log("Available schedules:");
+      Object.keys(staffScheduleCounts).forEach(id => {
+        console.log(`Staff ${id}: ${staffScheduleCounts[id]}`);
+      });
     });
 
-    request.addEventListener('timeout', () => {
-      alert("The request timed out")
+    xhr.addEventListener('timeout', () => {
+      console.log(":timout => Please try again.");
     });
 
-    request.addEventListener('loadend', () => {
-      alert("The request completed.");
+    xhr.addEventListener('loadend', () => {
+      console.log("Request Complete");
     });
-
-    request.send();
+    xhr.send();
   }
 </script>
 <body>

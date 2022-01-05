@@ -46,7 +46,7 @@ function render_todos() {
 function bind_event_listener() {
   document.querySelectorAll('li').forEach(li => {
     li.addEventListener('click', e => {
-      
+
     });
 
     li.querySelector('button').addEventListener('click', () => {

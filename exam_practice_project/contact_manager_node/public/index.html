@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="/stylesheets/reset.css">
+  <link rel="stylesheet" href="/stylesheets/index.css">
+  <script src="/javascripts/jquery.js"></script>
+  <script src="/javascripts/handlebars.js"></script>
+  <script src="/javascripts/index.js"></script>
+</head>
+<body>
+  <script id="header" class="partial" type="text/x-handlebars-template">
+    <header>
+      <h1>Contact Manager</h1>
+    </header>
+  </script>
+
+  <script id="contacts_template" class="template" type="text/x-handlebars-template">
+    {{> header}}
+    <section id="main">
+      <div id="main_header">
+        <a href="add_template" class="button">Add Contact</a>
+        <input type="search" placeholder="Search" value="{{searchTerm}}">
+      </div>
+      <div id="contact_section">
+        {{> dynamic}}
+      </div>
+    </section>
+    {{> footer}}
+  </script>
+
+  <script id="dynamic" class="partial template" type="text/x-handlebars-template">
+    <ul>
+      {{#each tags as |tag|}}
+      <li class="tag">#{{tag}}</li>
+      {{/each}}
+      {{#if tags}}
+      <a class="button" href="clear">Clear</a>
+      {{/if}}
+    </ul>
+    <ul>
+        {{#each contacts as |contact|}}
+        <li class="contact">
+          <h3>{{contact.full_name}}</h2>
+          <p><b>Phone Number:</b></p>
+          <p>{{contact.phone_number}}</p>
+          <p><b>Email:</b></p>
+          <p>{{contact.email}}</p>
+          <p><b>Tags:</b></p>
+          <ul class="tags">
+            {{#each contact.tags as |tag|}}
+            <li class="tag"><a href="#{{tag}}">#{{tag}}</a></li>
+            {{/each}}
+          </ul>
+          <div class="contact-options">
+            <a class="button" href="edit_template" data-id="{{contact.id}}">Edit</a>
+            <a class="button" href="#delete" data-id="{{contact.id}}">Delete</a>
+          </div>
+        </li>
+        {{/each}}
+    </ul>
+  </script>
+
+  <script id="add_template" class="template" type="text/x-handlebars-template">
+    {{> header}}
+    <section id="add" class="form_section">
+      <h2>Create Contact</h2>
+      <form action="/api/contacts" method="post">
+        <fieldset>
+          <p>
+            <label for="full_name">Full name:</label>
+            <input id="full_name" type="text" name="full_name" required>
+          </p>
+          <p>
+            <label for="email">Email address:</label>
+            <input id="email" type="email" name="email" required>
+          </p>
+          <p>
+            <label for="phone_number">Telephone number:</label>
+            <input id="phone_number" type="tel" name="phone_number" placeholder="0000000000" pattern="^\d{10,11}$" required>
+          </p>
+          <p>
+            <label for="tags">Tags:</label>
+            <input id="tags" type="text" name="tags" placeholder="tag,tag2,other tag">
+          </p>
+          <div class="form_buttons">
+            <button class="button" type="submit">Submit</button>
+            <a class="button" href="contacts_template">Cancel</a>
+          </div>
+        </fieldset>
+      </form>
+    </section>
+    {{> footer}}
+  </script>
+
+  <script id="edit_template" class="template" type="text/x-handlebars-template">
+    {{> header}}
+    <section id="edit" class="form_section">
+      <h2>Edit Contact</h2>
+        <form data-id="{{this.id}}" action="/api/contacts" method="post">
+          <fieldset>
+            <p>
+              <label for="full_name">Full name:</label>
+              <input id="full_name" type="text" name="full_name" value="{{this.full_name}}">
+            </p>
+            <p>
+              <label for="email">Email address:</label>
+              <input id="email" type="text" name="email" value="{{this.email}}">
+            </p>
+            <p>
+              <label for="phone_number">Telephone number:</label>
+              <input id="phone_number" type="tel" name="phone_number" pattern="^\d{10,11}$" value="{{this.phone_number}}">
+            </p>
+            <p>
+              <label for="tags">Tags:</label>
+              <input id="tags" type="text" name="tags" placeholder="tag,tag2,other tag" value="{{this.tags}}">
+            </p>
+            <div class="form_buttons">
+              <button class="button" type="submit">Submit</button>
+              <a class="button" href="contacts_template">Cancel</a>
+            </div>
+          </fieldset>
+        </form>
+    </section>
+    {{> footer}}
+  </script>
+  <script id="footer" class="partial" type="text/x-handlebars-template">
+    <footer>
+      <p>Developed by Company © 2022</p>
+    </footer>
+  </script>
+</body>
+</html>

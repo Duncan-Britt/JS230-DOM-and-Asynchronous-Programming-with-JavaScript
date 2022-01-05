@@ -1,0 +1,146 @@
+:root {
+  --purple: #52367b;
+}
+
+body { font-family: Helvetica, Arial, sans-serif; }
+
+header {
+  background-color: var(--purple);
+  color: #fff;
+  padding: 30px 0 50px 0;
+}
+
+h1 {
+  font-size: 35px;
+  text-align: center;
+  font-weight: bold;
+}
+
+b { font-weight: bold; }
+
+label { font-weight: bold; }
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+section {
+  width: 90%;
+  margin: 0 auto;
+}
+
+#main_header {
+  background-color: #f3f3f3;
+  display: flex;
+  justify-content: space-around;
+  padding: 1.2rem 0;
+}
+
+#main_header a { font-size: 18px; }
+
+#main_header input {
+  font-size: 14px;
+  padding-left: 10px;
+}
+
+.button {
+  background: none;
+  border: solid .12rem;
+  border-radius: .5rem;
+  padding: .5em;
+  display: inline-block;
+  text-align: center;
+}
+
+button[type="submit"] { font-size: inherit; }
+
+.button:hover {
+  cursor: pointer;
+  color: white;
+  background: var(--purple);
+}
+
+#main > ul { margin: 36px 10px; }
+
+.contact {
+  display: inline-block;
+  margin-right: 40px;
+  margin-bottom: 20px;
+}
+
+.contact h3 {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.contact p { line-height: 1.5em; }
+
+.tags {
+  display: inline;
+  line-height: 1.5em;
+}
+
+.tags li { display: inline; }
+
+.contact_options { margin: 25px 0; }
+
+.contact_options a { margin-right: 14px; }
+
+.form_section { margin-top: 38px; }
+
+.form_section h2 {
+  text-align: center;
+  font-size: 30px;
+}
+
+form {
+  margin: 30px 0;
+  width: 80%;
+}
+
+form p {
+  text-align: right;
+  line-height: 3em;
+}
+
+form input {
+  width: 60%;
+  padding: 6px 10px;
+}
+
+.form_buttons {
+  text-align: right;
+  width: 63.5%;
+  margin: 5px 0 0 auto;
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+}
+
+.form_buttons > * { width: 45%; }
+
+footer {
+  margin-top: 35vh;
+  text-align: center;
+}
+
+.flash_success {
+  color: #ffff0c;;
+  font-size: 20px;
+  text-align: center;
+  line-height: 2em;
+}
+
+.flash_error {
+  color: #bf5053;
+  font-size: 25px;
+  text-align: center;
+  line-height: 2em;
+}
+
+.tag {
+  display: inline;
+  margin: 0 2px;
+}

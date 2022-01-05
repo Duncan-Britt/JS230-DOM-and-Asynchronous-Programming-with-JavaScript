@@ -4,30 +4,31 @@
   <meta charset="utf-8" />
   <title>Exercise 2</title>
   <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', () => {
-      const form = document.getElementsByTagName('form')[0];
-      form.addEventListener('submit', event => {
-        event.preventDefault();
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.querySelector('form');
 
-        const data = new FormData(form);
-        const request = new XMLHttpRequest();
-        request.open(form.method, form.action);
-        request.addEventListener('load', () => {
-          switch (request.status) {
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', form.action);
+        xhr.addEventListener('load', () => {
+          switch (xhr.status) {
             case 201:
-              const id = JSON.parse(request.response)['id'];
-              form.reset();
-              alert(`Successfully created staff with id: ${id}`);
+              alert("Success!");
               break;
             case 400:
-              alert(request.responseText);
+              alert(xhr.responseText);
               break;
+            default:
+              alert("Unknown error");
           }
         });
-
-        request.send(data);
+        xhr.send(new FormData(form));
       });
     });
+
+
   </script>
 </head>
 <body>

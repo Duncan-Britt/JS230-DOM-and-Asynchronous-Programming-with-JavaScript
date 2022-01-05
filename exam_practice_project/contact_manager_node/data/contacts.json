@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "full_name": "Naveed Fida",
+    "email": "nf@example.com",
+    "phone_number": "12345678901",
+    "tags": "work,friend"
+  },
+  {
+    "id": 2,
+    "full_name": "Victor Reyes",
+    "email": "vpr@example.com",
+    "phone_number": "09876543234",
+    "tags": "work,friend"
+  },
+  {
+    "id": 3,
+    "full_name": "Pete Hanson",
+    "email": "ph@example.com",
+    "phone_number": "54321098761",
+    "tags": null
+  },
+  {
+    "full_name": "Mary Antoinette",
+    "phone_number": "123 123 1235",
+    "email": "nobread@gmail.com",
+    "tags": "let,them,eat cake",
+    "id": 5
+  },
+  {
+    "full_name": "Bob Ross",
+    "phone_number": "1231231234",
+    "email": "happylittletrees@joyofpainting.com",
+    "tags": "art,painting",
+    "id": 6
+  },
+  {
+    "full_name": "Bobo Bobbington",
+    "phone_number": "3034959432",
+    "email": "bob@thread.com",
+    "tags": "let,eat cake",
+    "id": 7
+  },
+  {
+    "full_name": "Duncan Britt",
+    "phone_number": "30234123732",
+    "email": "a@b.com",
+    "tags": "me,i,myself",
+    "id": 8
+  },
+  {
+    "full_name": "Joe Schmoe",
+    "phone_number": "1231231234",
+    "email": "schmoe@yahoo.com",
+    "tags": "sloppy joe",
+    "id": 9
+  }
+]
