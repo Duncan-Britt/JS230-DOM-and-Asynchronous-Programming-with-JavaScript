@@ -231,7 +231,6 @@
           break;
       }
 
-      // debugger;
       if (state.flash) {
         const flashP = el("p", { class: "flash_success" }, state.flash);
         document.querySelector("header").appendChild(flashP);
